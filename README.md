@@ -14,20 +14,28 @@ To set up the project locally, follow these steps:
 
 1. **Install Golang**: Ensure that you have Golang installed on your machine. You can download it from the [official Go website](https://golang.org/dl/).
 
-2. **Clone the Repository**: Clone the repository to your local machine using:
+2. **Install MongoDB**: Install MongoDB on your local machine. You can download it from the [official MongoDB website](https://www.mongodb.com/try/download/community). Follow the installation instructions for your operating system.
+
+3. **Start MongoDB**: Ensure that MongoDB is running. You can start MongoDB by running the following command in your terminal:
+    ```sh
+    mongod
+    ```
+    By default, MongoDB will run on `mongodb://localhost:27017`.
+
+4. **Clone the Repository**: Clone the repository to your local machine using:
     ```sh
     git clone https://github.com/VisarutJDev/social_media_api.git
     cd social_media_api
     ```
 
-3. **Install Dependencies**: Install the required dependencies using:
+5. **Install Dependencies**: Install the required dependencies using:
     ```sh
     go mod tidy
     ```
 
-4. **Configure Environment Variables**: Set up your environment variables. Create a `.env` file in the root directory and add necessary configurations (e.g., database connection strings, API keys).
+6. **Configure Environment Variables**: Set up your environment variables. Create a `.env` file in the root directory and add necessary configurations (e.g., database connection strings, API keys).
 
-5. **Run the Application**: Start the application using:
+7. **Run the Application**: Start the application using:
     ```sh
     go run main.go
     ```
