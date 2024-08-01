@@ -1,0 +1,311 @@
+definitions:
+  models.AuthResponse:
+    properties:
+      token:
+        description: Response message
+        type: string
+    type: object
+  models.LoginInput:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.Post:
+    properties:
+      author:
+        type: string
+      content:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+    type: object
+  models.Response:
+    properties:
+      error:
+        type: string
+      message:
+        description: Response message
+        type: string
+    type: object
+  models.User:
+    properties:
+      id:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /healthcheck:
+    get:
+      description: Health checking for the service
+      operationId: HealthCheckHandler
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Health Check
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      operationId: Login
+      parameters:
+      - description: login
+        in: body
+        name: loginInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AuthResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Login
+      tags:
+      - user
+  /posts:
+    get:
+      consumes:
+      - application/json
+      description: Get posts
+      operationId: GetPosts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - Bearer: []
+      summary: Get Posts
+      tags:
+      - post
+    post:
+      consumes:
+      - application/json
+      description: Create post by id
+      operationId: CreatePost
+      parameters:
+      - description: Post data to be Created
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/models.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - Bearer: []
+      summary: Create Post
+      tags:
+      - post
+  /posts/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete post by id
+      operationId: DeletePost
+      parameters:
+      - description: id of post to be deleted
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - Bearer: []
+      summary: Delete Post
+      tags:
+      - post
+    get:
+      consumes:
+      - application/json
+      description: Get post by id
+      operationId: GetPost
+      parameters:
+      - description: id of post to be get
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Post'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - Bearer: []
+      summary: Get Post
+      tags:
+      - post
+    put:
+      consumes:
+      - application/json
+      description: Update post by id
+      operationId: UpdatePost
+      parameters:
+      - description: id of post to be updated
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Post data to be updated
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/models.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - Bearer: []
+      summary: Update Post
+      tags:
+      - post
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: create new user with username password
+      operationId: Register
+      parameters:
+      - description: register
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: create user
+      tags:
+      - user
+securityDefinitions:
+  Bearer:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

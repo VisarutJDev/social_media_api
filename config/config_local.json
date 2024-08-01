@@ -1,0 +1,6 @@
+{
+    "jwtKey": "your_secret_key",
+    "mongoURI": "mongodb://localhost:27017",
+    "database": "social_media"
+}
+  
